@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express")
 const mongoose = require("mongoose")
 const app = express()
+const router = express.Router()
 const cors = require("cors");
 app.use(express.json());
 
@@ -9,7 +10,6 @@ if (!process.env.MONGO_URI) {
     console.error("MONGO_URI environment variable is missing");
     process.exit(1);
 }
-
 mongoose
     .connect(process.env.MONGO_URI)
     .then(() => console.log("✅ MongoDB Atlas Connected"))
