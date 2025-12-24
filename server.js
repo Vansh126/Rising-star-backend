@@ -3,7 +3,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const app = express()
 const cors = require("cors");
-
+app.use(express.json());
 mongoose
     .connect(process.env.MONGO_URI)
     .then(() => console.log("✅ MongoDB Atlas Connected"))
@@ -16,8 +16,8 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
-app.use(express.json());
-const userRoutes = require("./Routes/Rutes");
+
+const userRoutes = require("./Routes/UserRoutes");
 app.use("/api/users", userRoutes);
 const PORT = 3000;
 app.listen(PORT, () => {
