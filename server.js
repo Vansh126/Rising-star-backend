@@ -12,7 +12,7 @@ mongoose
         process.exit(1);
     });
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://new-rising-star-badminton-academy.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
