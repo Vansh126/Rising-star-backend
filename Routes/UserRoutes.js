@@ -2,6 +2,15 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 
+router.get("/", async (req, res) => {
+    try {
+        const users = await User.find().sort({ _id: -1 });
+        res.status(200).json({ success: true, data: users });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
 router.post("/join", async (req, res) => {
     try {
         const user = await User.create(req.body);

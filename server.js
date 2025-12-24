@@ -4,6 +4,12 @@ const mongoose = require("mongoose")
 const app = express()
 const cors = require("cors");
 app.use(express.json());
+
+if (!process.env.MONGO_URI) {
+    console.error("MONGO_URI environment variable is missing");
+    process.exit(1);
+}
+
 mongoose
     .connect(process.env.MONGO_URI)
     .then(() => console.log("✅ MongoDB Atlas Connected"))
@@ -11,8 +17,17 @@ mongoose
         console.error("❌ MongoDB connection error:", err.message);
         process.exit(1);
     });
+
+const allowedOrigins = [
+    "https://new-rising-star-badminton-academy.netlify.app",
+    "http://localhost:5173"
+];
+
 app.use(cors({
-    origin: "https://new-rising-star-badminton-academy.netlify.app",
+    origin: (origin, cb) => {
+        if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+        cb(new Error("Not allowed by CORS"));
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
