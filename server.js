@@ -19,6 +19,10 @@ app.use(cors({
 app.use(express.json());
 const userRoutes = require("./Routes/Rutes");
 app.use("/api/users", userRoutes);
+
+app.get('/', (req, res) => {
+    res.send("backend is running")
+})
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`)
