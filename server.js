@@ -17,7 +17,7 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.json());
-const userRoutes = require("./routes/UserRoutes");
+const userRoutes = require("./Routes/Userroutes");
 app.use("/api/users", userRoutes);
 const PORT = 3000;
 app.listen(PORT, () => {
